@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load user_tags %}
+
+{% block title %}
+    <title>Авторы</title>
+{% endblock %}
+
+{% block header %}
+    {% include 'inc/_header_list.html' %}
+{% endblock %}
+
+{% block hero %}
+    {% show_autors %}
+{% endblock %}
+
+{% block content %}
+    <!-- ======= Blog section ======= -->
+<section id="blog" class="blog-mf sect-pt4 route">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="title-box text-center">
+                        {% if user.is_authenticated %}
+                            <a class="btn btn-info" href="{% url 'add_supp' %}">Добавить автора</a>
+                        {% else %}
+                            Для получения дополнительных функций вам необходимо авторизоваться
+
+                        {% endif %}
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for item in page_obj %}
+                    <div class="col-md-4 d-flex">
+                        <div class="card card-blog">
+                            <div class="card-img">
+                                {% if item.photo_cover %}
+                                    <img src="{{ item.photo_cover.url }}" alt="" height="300" width="204">
+                                {% else %}
+                                    <img src="{% static 'assets/img/no_foto.jpg' %}" alt="" height="300" width="204">
+                                {% endif %}
+                                {% if item.photo_back %}
+                                    <img src="{{ item.photo_back.url }}" alt="" height="300" width="205">
+                                {% else %}
+                                    <img src="{% static 'assets/img/no_foto.jpg' %}" alt="" height="300" width="205">
+                                {% endif %}
+                            </div>
+                            <div class="card-body">
+                                <div class="card-category-box">
+                                </div>
+                                {% if user.is_authenticated %}
+                                    <h3 class="card-title"><a href="{% url 'info_supp_view' item.pk %}">{{ item.title }}</a></h3>
+                                {% else %}
+                                    <h3 class="card-title"><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h3>
+                                    <p class="card-description">
+                                    {{ item.description|truncatewords:20 }}
+                                    </p>
+                                {% endif %}
+
+                            </div>
+                            <div class="card-footer">
+                                <div class="post-author">
+                                    <span class="bi bi-person"></span> {{ item.title }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <nav aria-label="Page navigation example">
+            <ul class="pagination pagination-lg justify-content-center">
+                {% if page_obj.has_previous %} {# Проверка наличии предыдущей страницы #}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            {# ^получения номера предыдущей страницы^ #}
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+
+                {% for p in page_obj.paginator.page_range %} {# Перечисление страниц из пагинатора #}
+
+                    {% if p == page_obj.number %} {# Проверка текущей страницы со списком страницы #}
+                        {# Отображение страницы на которой находится пользователь #}
+                        <li class="page-item active" aria-current="page"><a class="page-link"
+                                                                            href="#">{{ p }}</a></li>
+                        {# Вывод всех остальных страниц #}
+                    {% elif p > page_obj.number|add:-3 and p < page_obj.number|add:3 %}
+                        {# p > page_obj.number - 3 #} {# 8 > 10 - 3 #}
+                        <li class="page-item"><a class="page-link" href="?page={{ p }}">{{ p }}</a></li>
+
+                    {% endif %}
+
+                {% endfor %}
+
+                {% if page_obj.has_next %} {# Проверка наличии следующей страницы #}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            {# ^получения номера следующей страницы^ #}
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+    </section>
+
+    <!-- End Blog -->
+{% endblock %}
+
+
+

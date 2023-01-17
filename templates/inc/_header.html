@@ -1,0 +1,25 @@
+<!-- ======= Header ======= -->
+<header id="header" class="fixed-top">
+    <div class="container d-flex align-items-center justify-content-between">
+
+        <h1 class="logo"><a href="#">MangaStore</a></h1>
+
+        <nav id="navbar" class="navbar">
+            <ul>
+                <li><a class="nav-link scrollto" href="{% url 'home' %}">Главная</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'login' %}">Личный кабинет</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'books_list' %}">Каталог</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'list_autors' %}">Авторы</a></li>
+                <li><a class="nav-link scrollto" href="{% url 'send_contact' %}">Помощь</a></li>
+                {% if user.is_authenticated %}
+                     <li><a class="nav-link scrollto" href="{% url 'logout' %}">Выход</a> <li>
+
+                {% endif %}
+            </ul>
+            <i class="bi bi-list mobile-nav-toggle"></i>
+            {% block alerts %} {% include 'inc/_alerts.html' %} {% endblock %}
+        </nav><!-- .navbar -->
+
+    </div>
+</header>
+<!-- End Header -->

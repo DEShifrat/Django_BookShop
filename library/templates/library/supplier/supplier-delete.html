@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load user_tags %}
+
+{% block title %}
+    <title>Добавить автора</title>
+{% endblock %}
+
+{% block header %}
+    {% include 'inc/_header_list.html' %}
+{% endblock %}
+
+{% block hero %}
+    {% show_autors %}
+{% endblock %}
+{% block content %}
+
+    <form method="post" action="{% url 'delete_supp_view' object.pk %}">
+        {% csrf_token %}
+        <p>Действительно ли вы хотите удалить поставщика: {{ object.title }}?</p>
+        <input type="submit" class="btn btn-danger" value="Подтвердить удаление"><br>
+    </form>
+    <a href="{% url 'info_supp_view' object.pk %}" class="btn btn-success">Не удалять</a><br>
+{% endblock %}

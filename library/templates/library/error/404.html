@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ title }}
+{% endblock %}
+
+{% block content %}
+    <h1>Вы набрели на не существующую страницу, перепроверьте вашу карту и вернитесь назад</h1>
+
+    <a class="btn btn-info" href="{% url 'list_autors' %}">Каталог фруктов</a>
+{% endblock %}

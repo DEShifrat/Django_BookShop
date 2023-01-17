@@ -1,0 +1,148 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{ book.title }}</title>
+{% endblock %}
+
+{% block header %}
+    {% include 'inc/_header_list.html' %}
+{% endblock %}
+
+{% block hero %}
+    <div class="hero hero-single route bg-image" style="background-image: url({% static 'assets/img/base/orig2.png' %})">
+        <div class="overlay-mf"></div>
+        <div class="hero-content display-table">
+            <div class="table-cell">
+                <div class="container">
+                    <h2 class="hero-title mb-4">Описание</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <section class="blog-wrapper sect-pt4" id="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="post-box">
+                        <div class="post-thumb">
+                            {% if one_supplier.photo_cover %}
+                                <img src="{{ one_supplier.photo_cover.url }}" class="img-fluid" height="300" width="300" alt="">
+                            {% else %}
+                                <img src="{% static 'assets/img/no_foto.jpg' %}" class="img-fluid" height="300" width="300" alt="">
+                            {% endif %}
+                            {% if one_supplier.photo_back %}
+                                <img src="{{ one_supplier.photo_back.url }}" class="img-fluid" height="300" width="300" alt="">
+                            {% else %}
+                                <img src="{% static 'assets/img/no_foto.jpg' %}" class="img-fluid" height="300" width="300" alt="">
+                            {% endif %}
+
+
+                        </div>
+                        <div class="post-meta">
+                            <h1 class="article-title">{{ one_supplier.title }}</h1>
+                            <ul>
+                                <li>
+                                    <span class="bi bi-person"></span><a> {{ one_supplier.author }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="article-content">
+                            <p>
+                                {{ one_supplier.description }}
+                            </p>
+                            <blockquote class="blockquote">
+                                <p class="mb-0">В описании использованы материалы сайта <a
+                                        href="https://ru.wikipedia.org/">ru.wikipedia.org</a></p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="widget-sidebar">
+                        <h5 class="sidebar-title">Описание</h5>
+                        <div class="sidebar-content">
+                            <ul class="list-sidebar">
+                                <li>
+                                    <a href="#">Год рождения: {{ one_supplier.birthday }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">Работает в настоящее время?: {{ one_supplier.exist }}</a>
+                                </li>
+
+                                 {% if user.is_authenticated %}
+                                    <a class="btn btn-info" href="{% url 'add_supp' %}">Добавить автора</a>
+                                     {% if perms.library.change_supplier %}
+                                     <a href="{% url 'edit_supp_view' object.pk %}" class="btn btn-warning">Редактировать</a><br>
+                                     {% endif %}
+
+                                     {% if perms.library.delete_supplier %}
+                                        <a href="{% url 'delete_supp_view' object.pk %}" class="btn btn-danger">Удалить</a><br>
+                                     {% endif %}
+                                     <a href="{% url 'list_autors' %}" class="btn btn-info">Назад</a><br>
+                                 {% else %}
+                                     <a href="{% url 'list_autors' %}" class="btn btn-info">Назад</a><br>
+
+                                 {% endif %}
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Blog -->
+{% endblock %}
+
+
+{##}
+{##}
+{##}
+{##}
+{#    <p>Автор: {{ one_supplier.title }}</p>#}
+{#    <p>Имя: {{ one_supplier.agent_firstname }}</p>#}
+{#    <p>Описание: {{ one_supplier.agent_name }}</p>#}
+{#    <p>Цена: {{ one_supplier.agent_patronymic }}</p>#}
+{#    <p>Дата создания: {{ one_supplier.birthday }}</p>#}
+{#    <p>фото: {{ one_supplier.photo_cover }}</p>#}
+{##}
+{##}
+{##}
+{##}
+{#    {% if perms.library.change_supplier %}#}
+{#        <a href="{% url 'edit_supp_view' object.pk %}" class="btn btn-warning">Редактировать</a><br>#}
+{#    {% endif %}#}
+{##}
+{#    {% if perms.library.delete_supplier %}#}
+{#    <a href="{% url 'delete_supp_view' object.pk %}" class="btn btn-danger">Удалить</a><br>#}
+{#    {% endif %}#}
+{##}
+{#    <a href="{% url 'list_supp_view' %}" class="btn btn-info">Назад</a><br>#}
+{##}
+{##}
+{#<!-- ======= Blog section ======= -->#}
+{#{% endblock %}#}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

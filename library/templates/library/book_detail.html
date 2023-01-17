@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{ book.title }}</title>
+{% endblock %}
+
+{% block header %}
+    {% include 'inc/_header_list.html' %}
+{% endblock %}
+
+{% block hero %}
+    <div class="hero hero-single route bg-image" style="background-image: url({% static 'assets/img/base/orig2.png' %})">
+        <div class="overlay-mf"></div>
+        <div class="hero-content display-table">
+            <div class="table-cell">
+                <div class="container">
+                    <h2 class="hero-title mb-4">Подробное описание книги</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+    <!-- ======= Blog section ======= -->
+    <section class="blog-wrapper sect-pt4" id="blog">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="post-box">
+                        <div class="post-thumb">
+                            {% if book.photo_cover %}
+                                <img src="{{ book.photo_cover.url }}" class="img-fluid" width="375" alt="">
+                            {% else %}
+                                <img src="{% static 'assets/img/no_foto.jpg' %}" class="img-fluid" width="375" alt="">
+                            {% endif %}
+                            {% if book.photo_back %}
+                                <img src="{{ book.photo_back.url }}" class="img-fluid" width="375" alt="">
+                            {% else %}
+                                <img src="{% static 'assets/img/no_foto.jpg' %}" class="img-fluid" width="375" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="post-meta">
+                            <h1 class="article-title">{{ book.title }}</h1>
+                            <ul>
+                                <li>
+                                    <span class="bi bi-person"></span><a> {{ book.author }}</a>
+                                </li>
+                                <li>
+                                    <span class="bi bi-cash"></span>
+                                    <a> {{ book.price }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="article-content">
+                            <p>
+                                {{ book.description }}
+                            </p>
+                            <blockquote class="blockquote">
+                                <p class="mb-0">В описании использованы материалы сайта <a
+                                        href="https://xlm.ru/">xlm.ru</a></p>
+                            </blockquote>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="widget-sidebar">
+                        <h5 class="sidebar-title">Описание</h5>
+                        <div class="sidebar-content">
+                            <ul class="list-sidebar">
+                                <li>
+                                    <a href="#">Год издания книги: {{ book.pub_date }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">Количество страниц: {{ book.num_pages }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">Тип обложки: {{ book.cover_type }}</a>
+                                </li>
+                                <li>
+                                    <a href="#">Формат книги: {{ book.sizes }}</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Blog -->
+{% endblock %}

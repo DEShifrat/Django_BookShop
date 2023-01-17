@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>Домашняя страница</title>
+{% endblock %}
+
+{% block header %}
+    {% include 'inc/_header.html' %}
+{% endblock %}
+
+{% block hero %}
+    <!-- ======= Hero Section ======= -->
+    <div id="hero" class="hero route bg-image" style="background-image: url({% static 'assets/img/base/orig2.png' %})">
+        <div class="overlay-itro"></div>
+        <div class="hero-content display-table">
+            <div class="table-cell">
+                <div class="container">
+
+                    <h1 class="hero-title mb-4">MangaStore "Читай что бы чувствовать"</h1>
+
+                    </p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Hero Section -->
+{% endblock %}

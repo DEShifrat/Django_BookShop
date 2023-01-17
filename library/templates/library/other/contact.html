@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load user_tags %}
+
+{% block title %}
+    <title>Форма обратной связи</title>
+{% endblock %}
+
+{% block header %}
+    {% include 'inc/_header_list.html' %}
+{% endblock %}
+
+{% block hero %}
+    {% show_other %}
+{% endblock %}
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            {{ form.subject.label }}:
+
+            {{ form.subject }}
+        </div>
+        <div>
+            {{ form.content.label }}
+            {{ form.content }}
+        </div>
+        <input class="btn btn-success" type="submit" value="Отправить письмо">
+    </form>
+    <a class="btn btn-danger" href="{% url 'books_list' %}">Возврат на каталог книг</a>
+{% endblock %}

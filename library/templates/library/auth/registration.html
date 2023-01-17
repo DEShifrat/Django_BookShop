@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    <title>{{ book.title }}</title>
+{% endblock %}
+
+{% block header %}
+    {% include 'inc/_header_list.html' %}
+{% endblock %}
+
+{% block hero %}
+    <div class="hero hero-single route bg-image" style="background-image: url({% static 'assets/img/base/orig2.png' %})">
+        <div class="overlay-mf"></div>
+        <div class="hero-content display-table">
+            <div class="table-cell">
+                <div class="container">
+                    <h2 class="hero-title mb-4">Регистрация</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block content %}
+
+    <form method="post" >
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <input class="btn btn-success" type="submit" value="Зарегистрироваться">
+    </form>
+{% endblock %}
